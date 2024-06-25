@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        form {
+            font-family: Arial, sans-serif;
+            width: 300px;
+            padding-left: 50px;
+            padding-right: 20px;
+            padding-top: 50px;
+            background-color: #f4f4f4;
+        }
+        input[type="firstname"],
+        input[type="lastname"],
+        input[type="loanamount"],
+        input[type="password"] {
+            width: 100%;
+            height: 40px; /* Adjust height as needed */
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; /* Ensure padding and border are included in width */
+        }
+    </style>
+</head>
+<body>
+    <h2>Loan Application</h2>
+    <form method="post">
+        <label for="firstname">First Name</label><br>
+        <input type="firstname" id="firstname" name="firstname"><br>
+
+        <label for="lastname">Last Name</label><br>
+        <input type="lastname" id="lastname" name="lastname"><br>
+        
+        <label for="ssn">SSN</label><br>
+        <input type="password" id="password" name="ssn"><br>
+
+        <label for="loanamount">Desired Loan Amount</label><br>
+        <input type="loanamount" id="loanamount" name="loanamount"><br>
+        
+        <label for="loanpurpose">Loan Purpose:</label><br>
+        <select id="loanpurpose" name="loanpurpose">
+            <option value="Debt Consolidation">Debt Consolidation</option>
+            <option value="Medical">Medical</option>
+            <option value="Travel">Travel</option>
+            <option value="Taxes">Taxes</option>
+            <option value="Wedding">Wedding</option>
+        </select>
+        <input type="submit" value="Submit">
+    </form>
+    <form method="post" action="/delete">
+        <input type="submit" value="Delete All Records">
+    </form>
+
+    <form method="post" action="/search">
+        <label for="ssn_v1">Enter ID:</label><br>
+        <input type="text" id="ssn_v1" name="ssn_v1"><br>
+        <input type="submit" value="Search">
+    </form>
+    
+    
+</body>
+</html>
