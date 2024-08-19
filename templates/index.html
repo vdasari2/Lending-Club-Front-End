@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align items to the top */
+            height: 100vh;
+            margin: 0;
+            overflow-y: auto; /* Allow vertical scrolling */
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+            margin-top: 20px; /* Add a top margin */
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin: 0 0 20px; /* Adjust bottom margin */
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="number"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+        h3{
+            text-align: center;
+            color: #333;
+            margin: 0 0 20px; /* Adjust bottom margin */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Loan Application</h2>
+        <form method="post">
+            <label for="firstname">First Name</label>
+            <input type="text" id="firstname" name="firstname">
+            
+            <label for="lastname">Last Name</label>
+            <input type="text" id="lastname" name="lastname">
+            
+            <label for="ssn">SSN</label>
+            <input type="password" id="ssn" name="ssn">
+            
+            <label for="dob">Date of Birth</label>
+            <input type="date" id="dob" name="dob">
+            
+            <label for="income">Income</label>
+            <input type="number" id="income" name="income" step="0.01">
+
+            <label for="homeownership">HomeOwner/Renter</label>
+            <select id="homeownership" name="homeownership">
+                <option value=""></option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+
+            <label for="incomeverification">Income Verification</label>
+            <select id="incomeverification" name="incomeverification">
+                <option value=""></option>
+                <option value="Not Verified">Not Verified</option>
+                <option value="Source Verified">Source Verified</option>
+                <option value="Verified">Verified</option>
+            </select>
+            
+            <label for="Loandisbursal">Loan Disbursment Method</label>
+            <select id="Loandisbursal" name="Loandisbursal">
+                <option value=""></option>
+                <option value="CASH">CASH</option>
+                <option value="DIRECT PAY">DIRECT PAY</option>
+            </select>
+
+            <label for="debtsetlement">Working with a Debt Settlement Company?</label>
+            <select id="debtsetlement" name="debtsetlement">
+                <option value=""></option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+
+            <label for="liststatus">Initial List Status</label>
+            <select id="liststatus" name="liststatus">
+                <option value=""></option>
+                <option value="Whole">Whole</option>
+                <option value="Fractional">Fractional</option>
+            </select>
+
+            <h3>Loan Information:</h3>
+            
+            <label for="intrate">Interest Rate</label>
+            <input type="number" id="intrate" name="intrate">
+
+            <label for="term">Term</label>
+            <select id="term" name="term">
+                <option value=""></option>
+                <option value="36 Months">36 Months</option>
+                <option value="60 Months">60 Months</option>
+            </select>   
+
+            <label for="loanamount">Desired Loan Amount</label>
+            <input type="number" id="loanamount" name="loanamount">
+            
+            <label for="loanpurpose">Loan Purpose:</label>
+            <select id="loanpurpose" name="loanpurpose">
+                <option value=""></option>
+                <option value="Debt Consolidation">Debt Consolidation</option>
+                <option value="Medical">Medical</option>
+                <option value="Travel">Travel</option>
+                <option value="Taxes">Taxes</option>
+                <option value="Wedding">Wedding</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <h3>Credit Information:</h3>
+
+            <label for="lfico">Latest FICO Score</label>
+            <input type="number" id="lfico" name="lfico">
+
+            <label for="ofico">Lowest FICO Score Ever Reported</label>
+            <input type="number" id="ofico" name="ofico">
+            
+            <label for="inq">Inquiries in Last 6 Months </label>
+            <input type="number" id="inq" name="inq">
+
+            <label for="DTI">DTI (Annual Debt to Annual Income Ratio)</label>
+            <input type="number" id="DTI" name="DTI" step="0.01">
+
+            <label for="numtrades">Number of Trades Opened in Last 6 Months</label>
+            <input type="number" id="numtrades" name="numtrades">
+
+            <label for="currbal">Average Current Balance on All Accounts</label>
+            <input type="number" id="currbal" name="currbal" step="0.000001">
+
+            <label for="recentaccount">Months Since Recent Account Opened</label>
+            <input type="number" id="recentaccount" name="recentaccount">
+
+            <label for="grossrecovery">Post Charge Off Gross Recovery</label>
+            <input type="number" id="grossrecovery" name="grossrecovery">
+
+            <label for="latefees">Late Fees Paid To Date</label>
+            <input type="number" id="latefees" name="latefees">
+            
+            <input type="submit" value="Submit">
+        </form>
+
+        <form method="post" action="/search">
+            <label for="ssn_v1">Enter ID:</label>
+            <input type="text" id="ssn_v1" name="ssn_v1">
+            <input type="submit" value="Search">
+        </form>
+
+        <form method="post" action="/delete">
+            <input type="submit" value="Delete All Records">
+        </form>
+    </div>
+</body>
+</html>

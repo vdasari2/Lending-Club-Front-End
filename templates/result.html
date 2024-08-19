@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+        h1 {
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.2em;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #d9534f; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Loan Application Result</h1>
+        <p>The loan application is: <span class="highlight">{{ prediction }}</span></p> 
+        <p>Probability of Default Score is: <span class="highlight">{{ pd_score }}</span></p> 
+    </div>
+</body>
+</html>
