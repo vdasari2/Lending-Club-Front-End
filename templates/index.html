@@ -120,10 +120,24 @@
                 <option value="No">No</option>
             </select>
 
+            <label for="liststatus">Initial List Status</label>
+            <select id="liststatus" name="liststatus">
+                <option value=""></option>
+                <option value="Whole">Whole</option>
+                <option value="Fractional">Fractional</option>
+            </select>
+
             <h3>Loan Information:</h3>
             
             <label for="intrate">Interest Rate</label>
             <input type="number" id="intrate" name="intrate">
+
+            <label for="term">Term</label>
+            <select id="term" name="term">
+                <option value=""></option>
+                <option value="36 Months">36 Months</option>
+                <option value="60 Months">60 Months</option>
+            </select>   
 
             <label for="loanamount">Desired Loan Amount</label>
             <input type="number" id="loanamount" name="loanamount">
@@ -157,8 +171,17 @@
             <input type="number" id="numtrades" name="numtrades">
 
             <label for="currbal">Average Current Balance on All Accounts</label>
-            <input type="number" id="currbal" name="currbal">
+            <input type="number" id="currbal" name="currbal" step="0.000001">
 
+            <label for="recentaccount">Months Since Recent Account Opened</label>
+            <input type="number" id="recentaccount" name="recentaccount">
+
+            <label for="grossrecovery">Post Charge Off Gross Recovery</label>
+            <input type="number" id="grossrecovery" name="grossrecovery">
+
+            <label for="latefees">Late Fees Paid To Date</label>
+            <input type="number" id="latefees" name="latefees">
+            
             <input type="submit" value="Submit">
         </form>
 
