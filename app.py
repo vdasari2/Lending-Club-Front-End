@@ -67,11 +67,6 @@ def index():
         grossrecovery = int(request.form['grossrecovery'])
         total_rec_late_fee = int(request.form['latefees'])
         recentaccount = int(request.form['recentaccount'])
-
-        collection.insert_one({'First Name': firstname, 'Last Name': lastname, 'DOB':dob,'Income':income, 'SSN':ssn, 'Loan Amount': loanamount, 'Loan Purpose':loanpurpose,
-        'Inquiries in last 6 Months':inq_last_6mths,'Home Ownership':home_ownership,'Interest Rate':int_rate,'Income Verification':incomeverification,
-        'DTI':DTI,'fico_range_low':lfico,'Account Management FICO':ofico,'numtrades':numtrades,'currbal':currbal,'disbursement_method':Loandisbursal,'debt_settlement_flag':debtsetlement,
-        'Recoveries':grossrecovery,'Late Fees Received to Date':total_rec_late_fee,'recentaccount':recentaccount,'term':term,'liststatus':initial_list_status})
         
         features = np.array([
             term,                    
