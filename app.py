@@ -6,6 +6,11 @@ import joblib
 import numpy as np
 import sklearn
 from sklearn.tree import DecisionTreeClassifier
+import shap
+import matplotlib
+import pandas as pd
+import matplotlib.pyplot as plt
+import mpld3
 
 app = Flask(__name__)
 
@@ -36,7 +41,7 @@ def index():
         if request.form['debtsetlement'] == 'Yes':
             debtsetlement = 1
         elif request.form['debtsetlement'] == 'No':
-            debtsetlement = 1
+            debtsetlement = 0
 
         if request.form['Loandisbursal'] == 'CASH':
             Loandisbursal = 0
@@ -96,11 +101,54 @@ def index():
         'DTI':DTI,'fico_range_low':lfico,'Account Management FICO':ofico,'numtrades':numtrades,'currbal':currbal,'disbursement_method':Loandisbursal,'debt_settlement_flag':debtsetlement,
         'Recoveries':grossrecovery,'Late Fees Received to Date':total_rec_late_fee,'recentaccount':recentaccount,'term':term,'liststatus':initial_list_status,'PD Score':y_pred_prob_v1,'Prediction Result':prediction_v1})
 
+        features_set = {
+            1: ['Term', 0], 
+            2: ['Interest_Rate', 0], 
+            3: ['Income Verification', 0], 
+            4: ['Debt To Income Ratio (DTI)', 0], 
+            5: ['Latest FICO Score', 0], 
+            6: ['Inquiries in Last 6 Months', 0], 
+            7: ['Initial List Status', 0], 
+            8: ['Total Recovery Late Fee', 0], 
+            9: ['Gross Recovery', 0], 
+            10: ['Lowest FICO Ever Reported', 0], 
+            11: ['Number of Trades Opened in Last 6 Months', 0], 
+            12: ['Avg Current Balance on all Accounts', 0], 
+            13: ['Months Since Most Recent Account Opened', 0], 
+            14: ['Loan Disbursal Method', 0], 
+            15: ['Debt Settlement Flag', 0]
+        }
+        
+        print(features_set.keys)
+        # explainer = shap.TreeExplainer(model)
+        # shap_values = explainer.shap_values(features)
+        # shap_html = shap.plots.force(explainer.expected_value[0], shap_values[..., 0], features)
+        # shap.save_html("shap_force_plot.html", shap_html)
+        explainer = shap.Explainer(model)
+        shap_values = explainer(features)
+
+        print(np.shape(shap_values.values))
+        print(shap_values)
+        shap_values_instance_class_1 = shap_values[0, :, 1]
+        shap_values_instance_class_2 = shap_values_instance_class_1.values
+        print(shap_values_instance_class_1.values)
+
+        for i, shap_value in enumerate(shap_values_instance_class_2):
+            features_set[i + 1][1] = shap_value 
+
+        # Convert dictionary to DataFrame for better visualization
+        features_df = pd.DataFrame.from_dict(features_set, orient='index', columns=['Feature Name', 'SHAP Value'])
+        features_df_sorted = features_df.sort_values(by='SHAP Value',ascending=False).head(3)
+        for row in features_df_sorted.head(1).values:
+            value_1 = (" -> ".join(map(str, row)))
+        print(features_df_sorted)
+
+
         print(prediction_v1)
         print(features)
         prediction_result = 'Rejected' if prediction[0] == 1 else 'Approved'
 
-        return render_template('result.html', prediction=prediction_result, pd_score = y_pred_prob)
+        return render_template('result.html', prediction=prediction_result, pd_score = y_pred_prob, SHAP_1 = value_1)
 
     return render_template('index.html')
 

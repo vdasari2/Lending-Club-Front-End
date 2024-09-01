@@ -20,7 +20,7 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             text-align: center;
-            max-width: 500px;
+            max-width: 750px;
             width: 100%;
         }
         h1 {
@@ -43,7 +43,9 @@
     <div class="container">
         <h1>Loan Application Result</h1>
         <p>The loan application is: <span class="highlight">{{ prediction }}</span></p> 
-        <p>Probability of Default Score is: <span class="highlight">{{ pd_score }}</span></p> 
+        <p>Probability of Default Score is: <span class="highlight">{{ pd_score }}</span></p>
+        <p>SHAP values are:<span class="highlight"></span></p>
+        <p><span class="highlight">{{ SHAP_1 }}</span></p>
     </div>
 </body>
 </html>
