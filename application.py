@@ -12,10 +12,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import mpld3
 
-app = Flask(__name__)
+application = Flask(__name__)
+app = application
 
 # MongoDB connection
-client = MongoClient('mongodb+srv://vishnupreethamreddy:WpTuwmu8sCc8s7Tk@cluster0.2hftm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+client = MongoClient('mongodb://localhost:27017/')
 db = client.LendingClub
 collection = db.ATBReport
 
