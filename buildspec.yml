@@ -1,0 +1,34 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.x  # Replace with the Python version you're using
+    commands:
+      - echo "Installing dependencies..."
+      - pip install --upgrade pip
+      - pip install -r requirements.txt
+
+  pre_build:
+    commands:
+      - echo "Pre-build phase completed. No tests included."
+
+  build:
+    commands:
+      - echo "Packaging the application..."
+      - mkdir -p deploy
+      - cp -r * deploy/  # Copy all project files into the deploy directory
+
+  post_build:
+    commands:
+      - echo "Build completed successfully."
+      - zip -r flask-app.zip deploy/  # Zip the application for deployment
+      - echo "Application packaged as flask-app.zip."
+
+artifacts:
+  files:
+    - flask-app.zip  # Upload the zipped artifact to be used by CodePipeline or Elastic Beanstalk
+
+cache:
+  paths:
+    - /root/.cache/pip  # Cache pip packages for faster builds
