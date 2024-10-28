@@ -32,7 +32,7 @@ collection = db.ATBReport
 model = joblib.load('final_model_v1.pkl')
 scaler = joblib.load('avg_cur_bal_scaler.pkl')
 print(type(model))
-@application.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
         firstname = request.form['firstname']
