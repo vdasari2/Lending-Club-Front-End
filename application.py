@@ -12,12 +12,20 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import mpld3
 from sklearn.preprocessing import MinMaxScaler
+import os 
+from dotenv import load_dotenv
+
+load_dotenv()
 
 application = Flask(__name__)
 app = application
 
+password = os.getenv('MONGODB_PASSWORD')
+connection_string = f"mongodb+srv://vishnupreethamreddy:{password}@cluster0.2hftm.mongodb.net/?retryWrites=true&w=majority&tls=true&appName=Cluster0"
+
 # MongoDB connection
-client = MongoClient('mongodb://localhost:27017/')
+# client = MongoClient('mongodb://localhost:27017/')
+client = MongoClient(connection_string)
 db = client.LendingClub
 collection = db.ATBReport
 
@@ -56,10 +64,10 @@ def index():
         elif request.form['term'] == '60 Months':
             term = 1
 
-        if request.form['liststatus'] == 'Whole':
-            initial_list_status = 1
-        elif request.form['liststatus'] == 'Fractional':
-            initial_list_status = 0
+        # if request.form['liststatus'] == 'Whole':
+        #     initial_list_status = 1
+        # elif request.form['liststatus'] == 'Fractional':
+        #     initial_list_status = 0
 
         if request.form['incomeverification'] == 'Not Verified':
             incomeverification = 0
@@ -81,12 +89,12 @@ def index():
         print(curr_bal_scaled_v1)
         features = np.array([
             term,                    
-            int_rate,               
+            int_rate,  
+            home_ownership,               
             incomeverification,      
             DTI,                   
             lfico,                 
-            inq_last_6mths,       
-            initial_list_status,    
+            inq_last_6mths,         
             total_rec_late_fee,       
             grossrecovery,            
             ofico,                   
@@ -105,16 +113,16 @@ def index():
         collection.insert_one({'First Name': firstname, 'Last Name': lastname, 'DOB':dob,'Income':income, 'SSN':ssn, 'Loan Amount': loanamount, 'Loan Purpose':loanpurpose,
         'Inquiries in last 6 Months':inq_last_6mths,'Home Ownership':home_ownership,'Interest Rate':int_rate,'Income Verification':incomeverification,
         'DTI':DTI,'fico_range_low':lfico,'Account Management FICO':ofico,'numtrades':numtrades,'currbal':curr_bal_scaled_v1,'disbursement_method':Loandisbursal,'debt_settlement_flag':debtsetlement,
-        'Recoveries':grossrecovery,'Late Fees Received to Date':total_rec_late_fee,'recentaccount':recentaccount,'term':term,'liststatus':initial_list_status,'PD Score':y_pred_prob_v1,'Prediction Result':prediction_v1})
+        'Recoveries':grossrecovery,'Late Fees Received to Date':total_rec_late_fee,'recentaccount':recentaccount,'term':term,'PD Score':y_pred_prob_v1,'Prediction Result':prediction_v1})
 
         features_set = {
             1: ['Term', 0], 
             2: ['Interest_Rate', 0], 
-            3: ['Income Verification', 0], 
-            4: ['Debt To Income Ratio (DTI)', 0], 
-            5: ['Latest FICO Score', 0], 
-            6: ['Inquiries in Last 6 Months', 0], 
-            7: ['Initial List Status', 0], 
+            3: ['HomeOwnerShip', 0], 
+            4: ['Income Verification', 0], 
+            5: ['Debt To Income Ratio (DTI)', 0], 
+            6: ['Latest FICO Score', 0], 
+            7: ['Inquiries in Last 6 Months', 0], 
             8: ['Total Recovery Late Fee', 0], 
             9: ['Gross Recovery', 0], 
             10: ['Lowest FICO Ever Reported', 0], 
