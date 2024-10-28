@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.x  # Replace with the Python version you're using
+      python: 3.11  # Replace with the Python version you're using
     commands:
       - echo "Installing dependencies..."
       - pip install --upgrade pip
