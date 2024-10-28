@@ -11,6 +11,7 @@ import matplotlib
 import pandas as pd
 import matplotlib.pyplot as plt
 import mpld3
+from sklearn.preprocessing import MinMaxScaler
 
 application = Flask(__name__)
 app = application
@@ -21,6 +22,7 @@ db = client.LendingClub
 collection = db.ATBReport
 
 model = joblib.load('final_model_v1.pkl')
+scaler = joblib.load('avg_cur_bal_scaler.pkl')
 print(type(model))
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -73,7 +75,10 @@ def index():
         grossrecovery = int(request.form['grossrecovery'])
         total_rec_late_fee = int(request.form['latefees'])
         recentaccount = int(request.form['recentaccount'])
-        
+
+        curr_bal_scaled_v1 = scaler.transform([[currbal]])[0,0]
+        # curr_bal_scaled_v1 = curr_bal_scaled.reshape(1, -1)
+        print(curr_bal_scaled_v1)
         features = np.array([
             term,                    
             int_rate,               
@@ -86,12 +91,12 @@ def index():
             grossrecovery,            
             ofico,                   
             numtrades,              
-            currbal,              
+            curr_bal_scaled_v1,              
             recentaccount,          
             Loandisbursal,           
             debtsetlement             
         ]).reshape(1, -1)
-
+        print(features)
         prediction = model.predict(features)
         y_pred_prob = model.predict_proba(features)[:, 1]
         y_pred_prob_v1  = y_pred_prob[0]
@@ -99,7 +104,7 @@ def index():
 
         collection.insert_one({'First Name': firstname, 'Last Name': lastname, 'DOB':dob,'Income':income, 'SSN':ssn, 'Loan Amount': loanamount, 'Loan Purpose':loanpurpose,
         'Inquiries in last 6 Months':inq_last_6mths,'Home Ownership':home_ownership,'Interest Rate':int_rate,'Income Verification':incomeverification,
-        'DTI':DTI,'fico_range_low':lfico,'Account Management FICO':ofico,'numtrades':numtrades,'currbal':currbal,'disbursement_method':Loandisbursal,'debt_settlement_flag':debtsetlement,
+        'DTI':DTI,'fico_range_low':lfico,'Account Management FICO':ofico,'numtrades':numtrades,'currbal':curr_bal_scaled_v1,'disbursement_method':Loandisbursal,'debt_settlement_flag':debtsetlement,
         'Recoveries':grossrecovery,'Late Fees Received to Date':total_rec_late_fee,'recentaccount':recentaccount,'term':term,'liststatus':initial_list_status,'PD Score':y_pred_prob_v1,'Prediction Result':prediction_v1})
 
         features_set = {
