@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      python: 3.11  # Replace with the Python version you're using
+      python: 3.11  # Ensure the correct Python version
     commands:
       - echo "Installing dependencies..."
       - pip install --upgrade pip
@@ -17,8 +17,9 @@ phases:
     commands:
       - echo "Packaging the application..."
       - mkdir -p deploy
-      - cp -r * deploy/  # Copy all project files into the deploy directory
-
+      # Copy all files except the deploy/ directory into deploy/
+      - rsync -av --exclude='deploy/' ./ deploy/
+      
   post_build:
     commands:
       - echo "Build completed successfully."
@@ -27,7 +28,7 @@ phases:
 
 artifacts:
   files:
-    - flask-app.zip  # Upload the zipped artifact to be used by CodePipeline or Elastic Beanstalk
+    - flask-app.zip  # Upload the zipped artifact to CodePipeline or Elastic Beanstalk
 
 cache:
   paths:
